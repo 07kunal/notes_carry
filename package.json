@@ -1,0 +1,14 @@
+{
+  "name": "note_zipper",
+  "version": "1.0.0",
+  "description": "note handling app ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node backend/server.js"
+  },
+  "author": "kunal_gautam",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
