@@ -1,15 +1,20 @@
 import RouteList from "./routes/RouteList";
+import Header from "./component/Header";
+import Footer from "./component/Footer";
 function App() {
   return (
 
     <div className="mainDiv">
       <section id="header">
-        <h1>hello</h1>
+        <Header />
 
       </section>
-      <div className="subDiv">
+      <div className="subDiv" >
         <RouteList />
       </div>
+      <section id="footer">
+        <Footer />
+      </section>
     </div>
 
   );
