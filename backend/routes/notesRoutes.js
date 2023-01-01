@@ -1,16 +1,10 @@
 const express = require('express')
-const notes = require('../data/notes')
+const { getNotes, notesById } = require('../controllers/notesController')
 const router = express.Router()
 
 
-router.get('/', (req, res) => {
-    res.json(notes)
-})
+
+router.get('/', getNotes)
 // signle note 
-router.get('/:id', (req, res) => {
-    // find the notes array
-    const singleNote = notes.find((note) => note._id === req.params.id)
-    // console.log(req.params);
-    res.json(singleNote)
-})
+router.get('/:id', notesById)
 module.exports = router
