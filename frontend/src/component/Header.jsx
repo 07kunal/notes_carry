@@ -3,10 +3,13 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { logout } from "../actions/userActions";
 
 function Header() {
   const Navigate = useNavigate();
+  const dispatch = useDispatch();
 
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
@@ -40,7 +43,8 @@ function Header() {
 
               <NavDropdown.Item
                 onClick={() => {
-                  localStorage.removeItem("userInfo");
+                  // localStorage.removeItem("userInfo");
+                  dispatch(logout());
                   Navigate("/");
                 }}
               >

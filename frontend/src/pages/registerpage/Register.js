@@ -1,12 +1,14 @@
 import React from 'react'
 import axios from "axios";
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Form, Button, Row, Col } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import DefaultScreen from '../../component/defaultscreen/DefaultScreen'
 import ErrorMessage from '../../component/ErrorMessage'
 import Loader from '../../component/Loader'
 import './style.css'
+import { useDispatch, useSelector } from 'react-redux'
+import { register } from '../../actions/userActions';
 
 
 
@@ -22,9 +24,18 @@ function Register() {
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [picMessage, setPicMessage] = useState(null);
-  const [error, setError] = useState(false);
-  const [isLoading, setIsLoading] = useState(false)
-  const API_URL = '/api/users'
+  const dispatch = useDispatch()
+  const userRegister = useSelector((state) => state.userRegister)
+
+
+  const { loading, error, userInfo } = userRegister
+
+  useEffect(() => {
+    if (userInfo) {
+      Navigate('/mynotes')
+    }
+  }, [userInfo])
+
 
   const submitHandler = async (e) => {
     e.preventDefault()
@@ -34,28 +45,7 @@ function Register() {
       setMessage(null)
     }
 
-    try {
-      setIsLoading(true)
-      const config = {
-        headers: {
-          "Content-type": "application/json"
-        }
-      }
-      const response = await axios.post(API_URL, {
-        name, email, password, pic, password
-      }, config)
-
-      if (response?.data) {
-        setIsLoading(false)
-        localStorage.setItem("userInfo", JSON.stringify(response?.data))
-      }
-
-
-    } catch (error) {
-      setIsLoading(false)
-
-      setError(error.response?.data?.message)
-    }
+    dispatch(register(name, email, password, pic))
   }
 
   const postDetail = (pics) => {
@@ -65,7 +55,7 @@ function Register() {
     }
 
     if (pics.type === 'image/jpeg' || pics.type === 'image/png') {
-      setIsLoading(true)
+
       const data = new FormData();
       data.append("file", pics)
       data.append("upload_preset", "noteHandler")
@@ -76,7 +66,7 @@ function Register() {
 
       }).then((response => response.json()))
         .then((data) => {
-          setIsLoading(false)
+
           console.log(data.url)
           setPic(data.url.toString())
         })
@@ -104,7 +94,7 @@ function Register() {
         <div className="loginContainer">
           {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
           {message && <ErrorMessage variant="danger">{message}</ErrorMessage>}
-          {isLoading && <Loader />}
+          {loading && <Loader />}
           <Form onSubmit={submitHandler}>
             <Form.Group controlId="name">
               <Form.Label>Name</Form.Label>
