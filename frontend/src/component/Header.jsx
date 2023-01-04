@@ -11,7 +11,9 @@ function Header() {
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand onClick={() => Navigate("/")}>Note Handler</Navbar.Brand>
+        <Navbar.Brand onClick={() => Navigate("/")} className="logoNav">
+          Note Handler
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
           <Nav className="m-auto">
@@ -36,7 +38,14 @@ function Header() {
             <NavDropdown title="Kunal Gautam" id="navbarScrollingDropdown">
               <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
 
-              <NavDropdown.Item href="#action5">Log out</NavDropdown.Item>
+              <NavDropdown.Item
+                onClick={() => {
+                  localStorage.removeItem("userInfo");
+                  Navigate("/");
+                }}
+              >
+                Log out
+              </NavDropdown.Item>
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

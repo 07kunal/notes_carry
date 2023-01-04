@@ -5,6 +5,8 @@ const colors = require('colors')
 const router = require('./routes/notesRoutes');
 const userRoutes = require('./routes/userRoutes')
 const connectDB = require('./config/db');
+const { notFound ,errorHandler} = require('./middleware/errorHandler');
+
 // connect to database
 connectDB()
 // dotenv.config()
@@ -25,6 +27,9 @@ app.use('/api/notes', router)
 app.get('/api/notes', router)
 // for the user
 app.use('/api/users', userRoutes)
+// error handler
+app.use(notFound)
+app.use(errorHandler)
 
 
 app.listen(PORT, () => console.log(`welcome to this port of ${PORT}`))

@@ -50,6 +50,7 @@ const registerUser = asyncHandler(async (req, res) => {
             _id: user._id,
             name: user.name,
             email: user.email,
+            pic: user.pic,
             token: generateToken(user._id)
 
         })
@@ -59,10 +60,37 @@ const registerUser = asyncHandler(async (req, res) => {
     }
 
 })
+// @desc user login
+// @dsec /api/users/login
+// @access Public
+
+const loginUser = asyncHandler(async (req, res) => {
+    const { email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    if (user && (await bcrypt.compare(password, user.password))) {
+        return res.status(200).json({
+            _id: user._id,
+            name: user.name,
+            email: user.email,
+            pic: user.pic,
+            token: generateToken(user._id)
+
+        })
+    } else {
+        return res.status(401).json({ message: "Invalid Credential" })
+    }
+
+
+
+})
+
+
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, { expiresIn: '10d' })
 }
 
 module.exports = {
-    registerUser
+    registerUser,
+    loginUser
 }
