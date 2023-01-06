@@ -28,7 +28,7 @@ app.use('/api/notes', notesRoutes)
 // for the user
 app.use('/api/users', userRoutes)
 // error handler
-app.use(notFound)
+// app.use(notFound)
 app.use(errorHandler)
 
 // ....deployment... 
@@ -45,6 +45,20 @@ if (process.env.NODE_ENV === 'production') {
         res.status(200).json({ message: 'welcome to Kunal Note Handler App' })
     })
 }
+
+
+
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "/frontend/build")));
+
+//   app.get("*", (req, res) =>
+//     res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+//   );
+// } else {
+//   app.get("/", (req, res) => {
+//     res.send("API is running..");
+//   });
+// }
 
 
 // ....deployment..... 
