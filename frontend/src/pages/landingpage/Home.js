@@ -4,11 +4,13 @@ import '../landingpage/style.css'
 import { Button } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 import { useEffect, useState } from 'react'
+import { useSelector } from "react-redux"
 
 
 function Home() {
-    const [userInfo, setUserInfo] = useState('')
     const Navigate = useNavigate()
+    const userLogin = useSelector((state) => state.userLogin)
+    const { userInfo } = userLogin
 
     // useEffect(() => {
 
@@ -26,7 +28,14 @@ function Home() {
                         <div>
                             <h1 className='title'>Welcome to Note's Handler</h1>
                             <p className='subtitle'>One Safe place for all your note's</p>
-                            <div className="buttonContainer">
+                            {userInfo && userInfo ? <div className="buttonContainer">
+                                <Button size='lg' className='landingbutton'
+                                    onClick={() => Navigate('/createnote')}
+                                >
+                                    Create Note
+                                </Button>
+
+                            </div> : <div className="buttonContainer">
                                 <Button size='lg' className='landingbutton'
                                     onClick={() => Navigate('/login')}
                                 >
@@ -38,7 +47,7 @@ function Home() {
                                 >
                                     register
                                 </Button>
-                            </div>
+                            </div>}
                         </div>
                     </div>
                 </Row>

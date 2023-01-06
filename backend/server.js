@@ -4,7 +4,7 @@ const dotenv = require('dotenv').config();
 const colors = require('colors')
 // const router = require('./routes/notesRoutes');
 const notesRoutes = require("./routes/notesRoutes")
-
+const path = require('path')
 const userRoutes = require('./routes/userRoutes')
 const connectDB = require('./config/db');
 const { notFound, errorHandler } = require('./middleware/errorHandler');
@@ -20,9 +20,7 @@ app.use(express.json());
 // const notes = require('./data/notes');
 
 
-app.get('/', (req, res) => {
-    res.status(200).json({ message: 'welcome to Kunal Note Handler App' })
-})
+
 // Routes for notes
 app.use('/api/notes', notesRoutes)
 
@@ -32,6 +30,24 @@ app.use('/api/users', userRoutes)
 // error handler
 app.use(notFound)
 app.use(errorHandler)
+
+// ....deployment... 
+
+
+
+if (process.env.NODE_ENV === 'production') {
+    app.use(express.static(path.join(__dirname, '../frontend/build')));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, '../', 'frontend', " build", 'index.html'))
+    })
+} else {
+    app.get('/', (req, res) => {
+        res.status(200).json({ message: 'welcome to Kunal Note Handler App' })
+    })
+}
+
+
+// ....deployment..... 
 
 
 app.listen(PORT, () => console.log(`welcome to this port of ${PORT}`))
