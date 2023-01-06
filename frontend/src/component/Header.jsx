@@ -3,14 +3,16 @@ import Form from "react-bootstrap/Form";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { logout } from "../actions/userActions";
 
-function Header() {
+function Header(props) {
+  const { setSearch } = props;
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-
+  const userLogin = useSelector((state) => state.userLogin);
+  const { userInfo } = userLogin;
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
@@ -26,6 +28,7 @@ function Header() {
                 placeholder="Search"
                 className="me-2"
                 aria-label="Search"
+                onChange={(e) => setSearch(e.target.value)}
               />
               {/* <Button variant="outline-success">Search</Button> */}
             </Form>
@@ -36,20 +39,41 @@ function Header() {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link onClick={() => Navigate("/mynotes")}>My Notes</Nav.Link>
+            {userInfo ? (
+              <Nav.Link onClick={() => Navigate("/mynotes")}>My Notes</Nav.Link>
+            ) : null}
 
-            <NavDropdown title="Kunal Gautam" id="navbarScrollingDropdown">
-              <NavDropdown.Item href="#action3">My Profile</NavDropdown.Item>
+            <NavDropdown
+              title={userInfo ? `${userInfo?.name}` : `Login`}
+              id="navbarScrollingDropdown"
+            >
+              {userInfo ? (
+                <NavDropdown.Item onClick={() => Navigate("/profile")}>
+                  My Profile
+                </NavDropdown.Item>
+              ) : null}
 
-              <NavDropdown.Item
-                onClick={() => {
-                  // localStorage.removeItem("userInfo");
-                  dispatch(logout());
-                  Navigate("/");
-                }}
-              >
-                Log out
-              </NavDropdown.Item>
+              {userInfo ? (
+                <NavDropdown.Item
+                  onClick={() => {
+                    // localStorage.removeItem("userInfo");
+                    dispatch(logout());
+                    Navigate("/");
+                  }}
+                >
+                  Log out
+                </NavDropdown.Item>
+              ) : (
+                <NavDropdown.Item
+                  onClick={() => {
+                    // localStorage.removeItem("userInfo");
+                    // dispatch(logout());
+                    Navigate("/login");
+                  }}
+                >
+                  Login
+                </NavDropdown.Item>
+              )}
             </NavDropdown>
           </Nav>
         </Navbar.Collapse>

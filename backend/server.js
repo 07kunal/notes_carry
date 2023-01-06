@@ -2,10 +2,12 @@ const express = require('express')
 const PORT = process.env.PORT || 5000;
 const dotenv = require('dotenv').config();
 const colors = require('colors')
-const router = require('./routes/notesRoutes');
+// const router = require('./routes/notesRoutes');
+const notesRoutes = require("./routes/notesRoutes")
+
 const userRoutes = require('./routes/userRoutes')
 const connectDB = require('./config/db');
-const { notFound ,errorHandler} = require('./middleware/errorHandler');
+const { notFound, errorHandler } = require('./middleware/errorHandler');
 
 // connect to database
 connectDB()
@@ -19,12 +21,12 @@ app.use(express.json());
 
 
 app.get('/', (req, res) => {
-    res.status(200).json({ message: 'note api is running' })
+    res.status(200).json({ message: 'welcome to Kunal Note Handler App' })
 })
 // Routes for notes
-app.use('/api/notes', router)
+app.use('/api/notes', notesRoutes)
 
-app.get('/api/notes', router)
+
 // for the user
 app.use('/api/users', userRoutes)
 // error handler

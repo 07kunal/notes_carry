@@ -103,6 +103,8 @@ function Register() {
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Enter name"
+style={{marginBottom:"15px"}}
+
               />
             </Form.Group>
 
@@ -113,6 +115,8 @@ function Register() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="Enter email"
+style={{marginBottom:"15px"}}
+
               />
             </Form.Group>
 
@@ -123,6 +127,8 @@ function Register() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Password"
+style={{marginBottom:"15px"}}
+
               />
             </Form.Group>
 
@@ -133,6 +139,8 @@ function Register() {
                 value={confirmpassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
                 placeholder="Confirm Password"
+style={{marginBottom:"15px"}}
+
               />
             </Form.Group>
 
@@ -145,7 +153,9 @@ function Register() {
               <Form.Control
                 type="file"
                 onChange={(e) => postDetail(e.target.files[0])}
-                label="Upload Profile Picture" />
+                label="Upload Profile Picture"
+                style={{marginBottom:"15px"}}
+                />
             </Form.Group>
 
             <Button variant="primary" type="submit">
