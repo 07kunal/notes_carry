@@ -1,5 +1,5 @@
 import axios from "axios";
-import { NOTE_CREATE_FAIL, NOTE_CREATE_REQUEST, NOTE_CREATE_SUCCESS, NOTE_LIST_FAIL, NOTE_LIST_REQUEST, NOTE_LIST_SUCCESS, NOTE_UPDATE_FAIL, NOTE_UPDATE_REQUEST, NOTE_UPDATE_SUCCESS } from "../constants/notesContants";
+import { NOTE_CREATE_FAIL, NOTE_CREATE_REQUEST, NOTE_CREATE_SUCCESS, NOTE_LIST_FAIL, NOTE_LIST_REQUEST, NOTE_LIST_SUCCESS, NOTE_UPDATE_FAIL, NOTE_UPDATE_REQUEST, NOTE_UPDATE_SUCCESS, NOTE_DELETE_FAIL, NOTE_DELETE_SUCCESS, NOTE_DELETE_REQUEST } from "../constants/notesContants";
 
 export const listNotes = () => async (dispach, getState) => {
     const API_URL = '/api/notes'
@@ -107,7 +107,7 @@ export const deleteNote = (id) => async (dispatch, getState) => {
 
     try {
 
-        dispatch({ type: NOTE_UPDATE_REQUEST })
+        dispatch({ type: NOTE_DELETE_REQUEST })
         const { userLogin: { userInfo } } = getState()
         const config = {
             headers: {
@@ -118,7 +118,7 @@ export const deleteNote = (id) => async (dispatch, getState) => {
 
         if (data) {
             dispatch({
-                type: NOTE_UPDATE_SUCCESS,
+                type: NOTE_DELETE_SUCCESS,
                 payload: data
             })
         }
@@ -127,7 +127,7 @@ export const deleteNote = (id) => async (dispatch, getState) => {
     } catch (error) {
         const message = error.response?.data?.message ? error.response?.data?.message : error.message;
         dispatch({
-            type: NOTE_UPDATE_FAIL,
+            type: NOTE_DELETE_FAIL,
             payload: message
         })
     }

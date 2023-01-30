@@ -22,7 +22,7 @@ const userInfo = localStorage.getItem('userInfo') ? JSON.parse(localStorage.getI
 const initialState = {
     userLogin: { userInfo }
 };
-console.log(userInfo)
+// console.log(userInfo)
 const middleware = [thunk]
 
 const store = createStore(

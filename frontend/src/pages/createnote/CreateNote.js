@@ -35,10 +35,11 @@ function CreateNote() {
 
     const submitHandler = (e) => {
         e.preventDefault();
-        dispatch(createNote(title, content, category));
-        if (!title || !content || !category) {
+         if (!title || !content || !category) {
             return setMessage("Please include all fileds")
         };
+        dispatch(createNote(title, content, category));
+       
 
         resetHandler();
         // history.push("/mynotes");

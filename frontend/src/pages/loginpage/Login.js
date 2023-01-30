@@ -35,31 +35,6 @@ function Login() {
         dispatch(login(email, password))
 
 
-
-        // try {
-        //     setIsLoading(true)
-        //     const config = {
-        //         headers: {
-        //             "Content-type": "application/json"
-        //         }
-        //     }
-
-
-        //     const response = await axios.post(API_URL + "/login", {
-        //         email, password
-        //     }, config)
-
-        //     if (response?.data) {
-        //         setIsLoading(false)
-        //         localStorage.setItem("userInfo", JSON.stringify(response?.data))
-        //     }
-
-        // } catch (error) {
-        //     setIsLoading(false)
-
-        //     setError(error.response?.data?.message)
-
-        // }
     }
     useEffect(() => {
         if (userInfo) {

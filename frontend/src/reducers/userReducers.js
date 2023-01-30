@@ -43,7 +43,7 @@ export const userRegisterReducer = (state = {}, action) => {
             return state;
     }
 }
-// user register action
+// user update profile action
 export const userUpdateReducer = (state = {}, action) => {
     switch (action.type) {
         case USER_UPDATE_REQUEST:

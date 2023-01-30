@@ -4,7 +4,7 @@ import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { logout } from "../actions/userActions";
 
 function Header(props) {
@@ -13,6 +13,8 @@ function Header(props) {
   const dispatch = useDispatch();
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
+  const location = useLocation();
+  console.log(location?.pathname);
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
@@ -21,18 +23,20 @@ function Header(props) {
         </Navbar.Brand>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
-          <Nav className="m-auto">
-            <Form className="d-flex">
-              <Form.Control
-                type="search"
-                placeholder="Search"
-                className="me-2"
-                aria-label="Search"
-                onChange={(e) => setSearch(e.target.value)}
-              />
-              {/* <Button variant="outline-success">Search</Button> */}
-            </Form>
-          </Nav>
+          {location?.pathname === "/mynotes" && (
+            <Nav className="m-auto">
+              <Form className="d-flex">
+                <Form.Control
+                  type="search"
+                  placeholder="Search"
+                  className="me-2"
+                  aria-label="Search"
+                  onChange={(e) => setSearch(e.target.value)}
+                />
+                {/* <Button variant="outline-success">Search</Button> */}
+              </Form>
+            </Nav>
+          )}
 
           <Nav
             className=" my-2 my-lg-0"

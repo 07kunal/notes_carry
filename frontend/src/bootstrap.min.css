@@ -4264,7 +4264,9 @@ input[type="submit"].btn-block {
     display: flex !important;
     -ms-flex-preferred-size: auto;
     flex-basis: auto;
-    justify-content: space-between;
+    /* justify-content: space-between; */
+    justify-content: end;
+
   }
   .navbar-expand-lg .navbar-toggler {
     display: none;

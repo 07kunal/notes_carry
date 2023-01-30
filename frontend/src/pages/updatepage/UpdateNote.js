@@ -75,7 +75,7 @@ function UpdateNote() {
         resetHandler();
         Navigate("/mynotes");
     };
-    console.log(noteId)
+    // console.log(noteId)
     return (
         <DefaultScreen title="Edit Note">
             <Card>
